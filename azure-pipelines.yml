@@ -20,3 +20,14 @@ steps:
     publishJUnitResults: false
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+- task: black-duck-software.detect-for-tfs.hub.detect.task.BlackDuckDetect@1
+  displayName: 'Run Black Duck Detect for your build '
+  inputs:
+    BlackDuckHubService: bizdevhub
+    DetectArguments: |
+     --detect.tools=POLARIS \
+     --polaris.url=$(polaris.url) \
+     --polaris.access.token=$(polaris.token) \
+     --polaris. arguments="mvn -f pom.xml clean install"
+     --detect.project.name=webgoat-azure-devops \
+     --detect.project.version=ci-build-scan \
